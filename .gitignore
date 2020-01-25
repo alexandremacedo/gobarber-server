@@ -91,7 +91,7 @@ dist/
 # Storybook build outputs
 .out
 .storybook-out
-
+.vscode
 # vuepress build output
 .vuepress/dist
 
