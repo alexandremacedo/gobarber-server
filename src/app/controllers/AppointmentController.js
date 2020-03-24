@@ -105,10 +105,16 @@ class AppointmentController {
       { locale: ptBR }
     );
 
-    await Notification.create({
+    const notification = await Notification.create({
       content: `Novo agendamento de ${user.name} para ${formattedDate}`,
       user: provider_id,
     });
+
+    const ownerSocket = req.connectedUsers[provider_id];
+
+    if (ownerSocket) {
+      req.io.to(ownerSocket).emit('notification', notification);
+    }
 
     return res.json(appointment);
   }
